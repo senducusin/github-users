@@ -48,27 +48,21 @@ class GithubUserListController: UITableViewController {
     }
     
     private func pullUsers(){
-        guard self.isFetching == false,
-              let resource = ResponseGithubUser.all(pagination: self.viewModel.pagination)
-              else {
+        guard self.isFetching == false else {
             return
         }
         
         self.isFetching.toggle()
-
-        WebService().load(resource: resource) { [weak self] result in
+        
+        UserService.pullUsers(withPagination: self.viewModel.pagination) { [weak self] result in
             switch(result){
-
             case .success(let users):
                 self?.viewModel.users = users
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+                self?.tableView.reloadData()
 
             case .failure(let error):
                 print("DEBUG \(error.localizedDescription)")
             }
-
             self?.isFetching.toggle()
         }
     }
@@ -85,6 +79,15 @@ extension GithubUserListController {
         
         cell.user = self.viewModel.userAtIndex(indexPath.row)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = self.viewModel.userAtIndex(indexPath.row)
+        
+        let controller = GithubUserDetailsController(user:user)
+        navigationController?.pushViewController(controller, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

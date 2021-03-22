@@ -76,7 +76,6 @@ class GithubUserListTableViewCell: UITableViewCell {
     }
     
     private func configure(){
-        
         if let user = user {
             self.loginLabel.text = user.login
             self.typeLabel.text = user.type

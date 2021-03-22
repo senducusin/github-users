@@ -73,11 +73,7 @@ extension PersistenceService{
     
     public func saveUsers(githubUsers:[ResponseGithubUser],completion:@escaping(Result<[User],Error>)->()){
         
-        let newUsers = githubUsers.filter { user -> Bool in
-           return !exist(githubUser: user)
-        }
-        
-        let newlyAddedUsers = newUsers.map { githubUser -> User in
+        let newlyAddedUsers = githubUsers.map { githubUser -> User in
             let newUser = User(context: self.context)
             newUser.login = githubUser.login
             newUser.id = Int64(githubUser.id)

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,8 @@
 		A66E500626088C3000A60E75 /* GithubUserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E500526088C3000A60E75 /* GithubUserListViewModel.swift */; };
 		A66E500B26088CEB00A60E75 /* GithubUserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E500A26088CEB00A60E75 /* GithubUserListTableViewCell.swift */; };
 		A66E501126088D2800A60E75 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E501026088D2800A60E75 /* UIView+Extensions.swift */; };
+		A66E5017260892C200A60E75 /* GithubUserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E5016260892C200A60E75 /* GithubUserDetailsController.swift */; };
+		A66E501A26089F7B00A60E75 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E501926089F7B00A60E75 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		A66E500526088C3000A60E75 /* GithubUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserListViewModel.swift; sourceTree = "<group>"; };
 		A66E500A26088CEB00A60E75 /* GithubUserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserListTableViewCell.swift; sourceTree = "<group>"; };
 		A66E501026088D2800A60E75 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		A66E5016260892C200A60E75 /* GithubUserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserDetailsController.swift; sourceTree = "<group>"; };
+		A66E501926089F7B00A60E75 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AC4705C39E84A5D280E18851 /* Pods-Github Users.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github Users.debug.xcconfig"; path = "Target Support Files/Pods-Github Users/Pods-Github Users.debug.xcconfig"; sourceTree = "<group>"; };
 		E7FD89BCA38D8BC40D560DB9 /* Pods-Github Users.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github Users.release.xcconfig"; path = "Target Support Files/Pods-Github Users/Pods-Github Users.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,7 +64,6 @@
 				AC4705C39E84A5D280E18851 /* Pods-Github Users.debug.xcconfig */,
 				E7FD89BCA38D8BC40D560DB9 /* Pods-Github Users.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -113,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				A66E4FF32608626300A60E75 /* GithubUserListController.swift */,
+				A66E5016260892C200A60E75 /* GithubUserDetailsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -122,6 +126,7 @@
 			children = (
 				A66E4FF8260862DF00A60E75 /* WebService.swift */,
 				A66E5000260867C600A60E75 /* PersistenceService.swift */,
+				A66E501926089F7B00A60E75 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -273,11 +278,13 @@
 			files = (
 				A66E5001260867C600A60E75 /* PersistenceService.swift in Sources */,
 				A66E4FFE260865B900A60E75 /* ResponseGithubUser.swift in Sources */,
+				A66E5017260892C200A60E75 /* GithubUserDetailsController.swift in Sources */,
 				A66E501126088D2800A60E75 /* UIView+Extensions.swift in Sources */,
 				A66E500626088C3000A60E75 /* GithubUserListViewModel.swift in Sources */,
 				A66E4FE1260861A800A60E75 /* Github_Users.xcdatamodeld in Sources */,
 				A66E4FD7260861A800A60E75 /* AppDelegate.swift in Sources */,
 				A66E4FD9260861A800A60E75 /* SceneDelegate.swift in Sources */,
+				A66E501A26089F7B00A60E75 /* UserService.swift in Sources */,
 				A66E4FF9260862DF00A60E75 /* WebService.swift in Sources */,
 				A66E500B26088CEB00A60E75 /* GithubUserListTableViewCell.swift in Sources */,
 				A66E4FF42608626300A60E75 /* GithubUserListController.swift in Sources */,

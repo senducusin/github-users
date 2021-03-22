@@ -32,7 +32,8 @@ extension Resource {
 }
 
 class WebService{
-    func load<T>(resource:Resource<T>, completion:@escaping(Result<[User],NetworkError>)->()){
+    
+    func load<T>(resource:Resource<T>, completion:@escaping(Result<T,NetworkError>)->()){
         var request = URLRequest(url: resource.url)
         request.httpBody = resource.httpBody
         request.httpMethod = resource.httpMethod.rawValue
@@ -47,24 +48,26 @@ class WebService{
                 return
               }
             
+            print(">>DEBUG<< attempting to download: \(resource.url)")
+            
             do {
                 let dataResults = try JSONDecoder().decode(T.self, from: data)
-          
-                if let dataResults = dataResults as? [ResponseGithubUser] {
+                completion(.success(dataResults))
+//                if let dataResults = dataResults as? [ResponseGithubUser] {
                     
-                    DispatchQueue.main.async {
+//                    DispatchQueue.main.async {
                    
-                        PersistenceService.shared.saveUsers(githubUsers: dataResults) { result in
-                            switch(result){
-                            case .success(let users):
-                                completion(.success(users))
-                            case .failure(_):
-                                completion(.failure(.persistingError))
-                            }
-                            
-                        }
-                    }
-                }
+//                        PersistenceService.shared.saveUsers(githubUsers: dataResults) { result in
+//                            switch(result){
+//                            case .success(let users):
+//                                completion(.success(users as! T))
+//                            case .failure(_):
+//                                completion(.failure(.persistingError))
+//                            }
+//
+//                        }
+//                    }
+//                }
                 
                 
             }catch{
