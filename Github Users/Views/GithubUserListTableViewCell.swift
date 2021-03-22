@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 
 class GithubUserListTableViewCell: UITableViewCell {
@@ -75,14 +76,11 @@ class GithubUserListTableViewCell: UITableViewCell {
     }
     
     private func configure(){
-        let user = self.user!
         
-//        if let user = user {
+        if let user = user {
             self.loginLabel.text = user.login
             self.typeLabel.text = user.type
-//
-//
-//            self.avatarImageView.sd_setImage(with: URL(string:user.avatar_url), placeholderImage:UIImage(systemName: "person.circle.fill"))
-//        }
+            self.avatarImageView.kf.setImage(with: URL(string:user.avatar_url!), placeholder: UIImage(systemName: "person.circle.fill"))
+        }
     }
 }

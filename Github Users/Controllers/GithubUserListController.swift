@@ -49,7 +49,7 @@ class GithubUserListController: UITableViewController {
     
     private func pullUsers(){
         guard self.isFetching == false,
-              let resource = ResponseGithubUser.all(pagination: 0)
+              let resource = ResponseGithubUser.all(pagination: self.viewModel.pagination)
               else {
             return
         }
@@ -72,8 +72,6 @@ class GithubUserListController: UITableViewController {
             self?.isFetching.toggle()
         }
     }
-
-    
 }
 
 
@@ -93,8 +91,7 @@ extension GithubUserListController {
         let position = scrollView.contentOffset.y
 
         if position > (self.tableView.contentSize.height - 100 - scrollView.frame.size.height) {
-//            self.pullUsers()
-            print(self.viewModel.users.last?.login)
+            self.pullUsers()
         }
     }
 }
