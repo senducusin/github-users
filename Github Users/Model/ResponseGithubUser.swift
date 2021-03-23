@@ -38,8 +38,8 @@ struct ResponseGithubUser:Codable {
     var public_gists : Int?
     var followers : Int?
     var following : Int?
-    var created_at : Date?
-    var updated_at : Date?
+    var created_at : String?
+    var updated_at : String?
 }
 
 extension ResponseGithubUser {
@@ -51,8 +51,8 @@ extension ResponseGithubUser {
         return Resource(url: url)
     }
 
-    static func user(withUser user: User) -> Resource<ResponseGithubUser>? {
-        guard let url = URL(string: "https://api.github.com/users/\(user)") else {
+    static func user(withLogin login: String) -> Resource<ResponseGithubUser>? {
+        guard let url = URL(string: "https://api.github.com/users/\(login)") else {
             return nil
         }
         return Resource(url: url)

@@ -15,6 +15,11 @@ class GithubUserListController: UITableViewController {
 // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        defer {
+            self.viewModel.appStarted = true
+        }
+        
         self.setupTableView()
         self.setupUI()
         self.loadUsers()
@@ -31,43 +36,42 @@ class GithubUserListController: UITableViewController {
     }
     
     private func loadUsers(){
-        PersistenceService.shared.retrieveUsers { [weak self] result in
+        PersistenceService.shared.retrieveUsers(withPagination: self.viewModel.pagination) { [weak self] result in
             switch(result){
             
-            case .success(let users):
+            case .success(let users): //break
                 self?.viewModel.users = users
+                self?.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
             
             if let users = self?.viewModel.users,
                users.isEmpty{
+                print("still calling?")
                 self?.pullUsers()
             }
         }
     }
     
     private func pullUsers(){
-        guard self.isFetching == false else {
+        guard self.isFetching == false,
+              let resource = User.all(pagination: self.viewModel.pagination) else {
             return
         }
         
         self.isFetching.toggle()
         
-        UserService.pullUsers(withPagination: self.viewModel.pagination) { [weak self] result in
-            switch(result){
-            case .success(let users):
-                self?.viewModel.users = users
-                self?.tableView.reloadData()
-
-            case .failure(let error):
-                print("DEBUG \(error.localizedDescription)")
+        WebService().loadToCoreData(resource: resource) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
             }
-            self?.isFetching.toggle()
+            self.isFetching.toggle()
+            self.loadUsers()
         }
     }
 }
-
 
 extension GithubUserListController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,6 +95,10 @@ extension GithubUserListController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard viewModel.appStarted else {
+            return
+        }
+        
         let position = scrollView.contentOffset.y
 
         if position > (self.tableView.contentSize.height - 100 - scrollView.frame.size.height) {

@@ -10,10 +10,20 @@ import CoreData
 
 class PersistenceService{
     static let shared = PersistenceService()
+    let container: NSPersistentContainer = {
+        var container = NSPersistentContainer(name: "Github_Users")
+        container.loadPersistentStores { storeDescription, error in
+            // resolve conflict by using correct NSMergePolicy
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
+            if let error = error {
+                print("Unresolved error \(error)")
+            }
+        }
+        return container
+    }()
     
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    private func requestAll(withPredicates predicates:[NSPredicate] = [], withRequest request:NSFetchRequest<User>, completion: @escaping((Result<[User], Error>)->())){
+    private func all(withPredicates predicates:[NSPredicate] = [], withRequest request:NSFetchRequest<User>, completion: @escaping((Result<[User], Error>)->())){
         
         let attributeSortDescriptor = NSSortDescriptor(key: "id", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
             request.sortDescriptors = [attributeSortDescriptor]
@@ -22,7 +32,7 @@ class PersistenceService{
         request.predicate = compoundPredicate
         
         do {
-            let data = try context.fetch(request)
+            let data = try container.viewContext.fetch(request)
             completion(.success(data))
            
         } catch {
@@ -32,66 +42,24 @@ class PersistenceService{
         
     }
     
-    private func save(completion:@escaping(Error?)->()){
-        do{
-            try context.save()
-            completion(nil)
-        }catch{
-            completion(error)
+    public func save(completion:@escaping(Error?)->()){
+        if container.viewContext.hasChanges {
+            do{
+                try container.viewContext.save()
+                completion(nil)
+            }catch{
+                completion(error)
+            }
         }
     }
-    
-    
 }
 
 extension PersistenceService{
-    
-    public func retrieveUsers(completion:@escaping((Result<[User], Error>)->()))  {
-        let requestItem: NSFetchRequest<User> = User.fetchRequest()
-        self.requestAll(withRequest: requestItem, completion: completion)
-    }
-    
-    public func exist(githubUser:ResponseGithubUser) -> Bool{
-        let requestItem: NSFetchRequest<User> = User.fetchRequest()
-        let predicateCategory = NSPredicate( format: "id == %i", githubUser.id)
-        var resultBool: Bool!
-        self.requestAll(withPredicates: [predicateCategory], withRequest: requestItem) { result in
-            
-            switch (result) {
-            case .success(let users):
-                if users.isEmpty {
-                    resultBool = false
-                }else{
-                    resultBool = true
-                }
-            case .failure(_):
-                resultBool = true
-            }
-        }
-        return resultBool
-    }
-    
-    public func saveUsers(githubUsers:[ResponseGithubUser],completion:@escaping(Result<[User],Error>)->()){
+    public func retrieveUsers(withPagination page:Int, completion:@escaping((Result<[User], Error>)->()))  {
         
-        let newlyAddedUsers = githubUsers.map { githubUser -> User in
-            let newUser = User(context: self.context)
-            newUser.login = githubUser.login
-            newUser.id = Int64(githubUser.id)
-            newUser.node_id = githubUser.node_id
-            newUser.avatar_url = githubUser.avatar_url
-            newUser.type = githubUser.type
-            newUser.site_admin = githubUser.site_admin
-
-            return newUser
-        }
+        let predicatePagination = NSPredicate(format: "id > %i", page)
         
-        self.save { error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            completion(.success(newlyAddedUsers))
-        }
+        let requestItem: NSFetchRequest<User> = User.fetchRequest()
+        self.all(withPredicates:[predicatePagination], withRequest: requestItem, completion: completion)
     }
 }

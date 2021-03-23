@@ -14,21 +14,35 @@ class GithubUserDetailsController: UIViewController {
     // MARK: - Lifecycle
     init(user: User){
         self.user = user
-//        
-//        if let user = self.user,
-//           let resource = ResponseGithubUser.user(withUser: user){
-//            WebService().load(resource: resource) { result in
-//                switch(result){
-//                
-//                case .success(let user):
-//                    self.user = user
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
         
         super.init(nibName: nil, bundle: nil)
+        if  let login = user.login,
+            let resource = ResponseGithubUser.user(withLogin: login) {
+            
+            WebService().load(resource: resource) { [weak self] result in
+                
+                switch(result){
+                
+                case .success(let user):
+                    self?.user?.avatar_url = user.avatar_url
+                    self?.user?.bio = user.bio
+                    self?.user?.blog = user.blog
+                    self?.user?.company = user.company
+                    
+                    
+                    PersistenceService.shared.save { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                        
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+        
     }
     
     required init?(coder: NSCoder) {

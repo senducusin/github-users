@@ -9,6 +9,7 @@ import Foundation
 
 struct GitUserListViewModel {
     private var _users = [User]()
+    var appStarted = false
     var pagination = 0
     
     var users: [User] = [User]() {
