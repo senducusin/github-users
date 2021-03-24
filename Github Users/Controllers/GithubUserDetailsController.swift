@@ -30,12 +30,12 @@ class GithubUserDetailsController: UIViewController {
                     self?.user?.company = user.company
                     
                     
-                    PersistenceService.shared.save { error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
-                        
-                    }
+//                    PersistenceService.shared.save { error in
+//                        if let error = error {
+//                            print(error.localizedDescription)
+//                        }
+//                        
+//                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

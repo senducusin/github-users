@@ -54,48 +54,4 @@ class WebService{
             }
         }.resume()
     }
-    
-    func loadToCoreData<T>(resource:Resource<T>, completion:@escaping(NetworkError?)->()){
-        var request = URLRequest(url: resource.url)
-        request.httpBody = resource.httpBody
-        request.httpMethod = resource.httpMethod.rawValue
-        request.addValue("json/application", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            guard error == nil,
-                  let data = data else {
-                if let _ = error {
-                    completion(.domainError)
-                }
-                return
-              }
-            
-
-            do {
-                
-                let decoder = JSONDecoder()
-                decoder.userInfo[CodingUserInfoKey.context!] = PersistenceService.shared.container.viewContext
-                
-                let _ = try decoder.decode(T.self, from: data)
-                DispatchQueue.main.async {
-                    
-                    
-                    PersistenceService.shared.save { error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                            completion(.persistenceError)
-                            return
-                        }
-                        completion(nil)
-                    }
-                }
-
-            }catch{
-                print("failed: \(resource.url)")
-                completion(.decodeError)
-            }
-
-            
-        }.resume()
-    }
 }

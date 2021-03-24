@@ -36,22 +36,22 @@ class GithubUserListController: UITableViewController {
     }
     
     private func loadUsers(){
-        PersistenceService.shared.retrieveUsers(withPagination: self.viewModel.pagination) { [weak self] result in
-            switch(result){
-            
-            case .success(let users): //break
-                self?.viewModel.users = users
-                self?.tableView.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            if let users = self?.viewModel.users,
-               users.isEmpty{
-                print("still calling?")
-                self?.pullUsers()
-            }
-        }
+//        PersistenceService.shared.retrieveUsers(withPagination: self.viewModel.pagination) { [weak self] result in
+//            switch(result){
+//            
+//            case .success(let users): //break
+//                self?.viewModel.users = users
+//                self?.tableView.reloadData()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//            
+//            if let users = self?.viewModel.users,
+//               users.isEmpty{
+//                print("still calling?")
+//                self?.pullUsers()
+//            }
+//        }
     }
     
     private func pullUsers(){
@@ -62,14 +62,14 @@ class GithubUserListController: UITableViewController {
         
         self.isFetching.toggle()
         
-        WebService().loadToCoreData(resource: resource) { error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            self.isFetching.toggle()
-            self.loadUsers()
-        }
+//        WebService().loadToCoreData(resource: resource) { error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//            self.isFetching.toggle()
+//            self.loadUsers()
+//        }
     }
 }
 
