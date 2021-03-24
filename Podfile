@@ -7,5 +7,5 @@ target 'Github Users' do
 
   # Pods for Github Users
 pod 'Kingfisher', '~> 6.0'
-
+pod 'RealmSwift', '=10.1.4'
 end
