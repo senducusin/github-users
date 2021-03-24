@@ -25,9 +25,9 @@ class GithubUserDetailsController: UIViewController {
                 
                 case .success(let user):
                     self?.user?.avatar_url = user.avatar_url
-                    self?.user?.bio = user.bio
-                    self?.user?.blog = user.blog
-                    self?.user?.company = user.company
+//                    self?.user?.bio = user.bio
+//                    self?.user?.blog = user.blog
+//                    self?.user?.company = user.company
                     
                     
 //                    PersistenceService.shared.save { error in

@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+/*
 @objc(User)
 public class User: NSManagedObject, Codable {
     public func encode(to encoder: Encoder) throws {
@@ -85,3 +86,4 @@ extension User {
         return Resource(url: url)
     }
 }
+*/

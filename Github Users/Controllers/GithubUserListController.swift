@@ -16,13 +16,15 @@ class GithubUserListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        defer {
-            self.viewModel.appStarted = true
-        }
-        
         self.setupTableView()
         self.setupUI()
         self.loadUsers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.viewModel.appStarted = true
     }
     
 // MARK: - Helpers
@@ -36,6 +38,7 @@ class GithubUserListController: UITableViewController {
     }
     
     private func loadUsers(){
+        
 //        PersistenceService.shared.retrieveUsers(withPagination: self.viewModel.pagination) { [weak self] result in
 //            switch(result){
 //            
@@ -46,30 +49,48 @@ class GithubUserListController: UITableViewController {
 //                print(error.localizedDescription)
 //            }
 //            
-//            if let users = self?.viewModel.users,
-//               users.isEmpty{
-//                print("still calling?")
-//                self?.pullUsers()
+//            if let users = self.viewModel.users,
+        
+        
+        
+        if self.viewModel.users.isEmpty{
+            print("still calling?")
+            self.pullUsers()
+            
+        }
 //            }
 //        }
     }
     
-    private func pullUsers(){
+    private func pullUsers(withPagination pagination: Int = 0){
         guard self.isFetching == false,
-              let resource = User.all(pagination: self.viewModel.pagination) else {
+              let resource = User.all(pagination: pagination) else {
             return
         }
         
         self.isFetching.toggle()
-        
-//        WebService().loadToCoreData(resource: resource) { error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                return
-//            }
-//            self.isFetching.toggle()
-//            self.loadUsers()
-//        }
+        print(resource.url)
+        WebService().load(resource: resource) { result in
+            switch(result){
+            
+            case .success(let users):
+                DispatchQueue.main.async {
+                    
+                    PersistenceService.shared.persistUsers(users: users) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                            return
+                        }
+                        self.isFetching.toggle()
+//                        self.loadUsers()
+                        self.tableView.reloadData()
+                    }
+                }
+
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -102,7 +123,7 @@ extension GithubUserListController {
         let position = scrollView.contentOffset.y
 
         if position > (self.tableView.contentSize.height - 100 - scrollView.frame.size.height) {
-            self.pullUsers()
+            self.pullUsers(withPagination: self.viewModel.pagination)
         }
     }
 }

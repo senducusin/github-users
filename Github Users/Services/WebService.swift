@@ -19,7 +19,7 @@ enum HttpMethod: String {
     case get = "GET"
 }
 
-struct Resource<T:Codable>{
+struct Resource<T:Decodable>{
     var url: URL
     var httpMethod: HttpMethod = .get
     var httpBody: Data? = nil
@@ -50,6 +50,7 @@ class WebService{
                 let result = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(result))
             }catch{
+                print("DEBUG error in decoding")
                 completion(.failure(.decodeError))
             }
         }.resume()

@@ -10,7 +10,6 @@
 		7038D28F504380C7D59A5DFE /* Pods_Github_Users.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920F3D8939F208F18B299DEF /* Pods_Github_Users.framework */; };
 		A623A4D3260984F00072B1F8 /* CodingUserInfoKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623A4D2260984F00072B1F8 /* CodingUserInfoKey+Extensions.swift */; };
 		A623A4DC2609ACC60072B1F8 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623A4DA2609ACC60072B1F8 /* User+CoreDataClass.swift */; };
-		A623A4DD2609ACC60072B1F8 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A623A4DB2609ACC60072B1F8 /* User+CoreDataProperties.swift */; };
 		A66E4FD7260861A800A60E75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E4FD6260861A800A60E75 /* AppDelegate.swift */; };
 		A66E4FD9260861A800A60E75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66E4FD8260861A800A60E75 /* SceneDelegate.swift */; };
 		A66E4FE3260861A800A60E75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A66E4FE2260861A800A60E75 /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 		920F3D8939F208F18B299DEF /* Pods_Github_Users.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Github_Users.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A623A4D2260984F00072B1F8 /* CodingUserInfoKey+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Extensions.swift"; sourceTree = "<group>"; };
 		A623A4DA2609ACC60072B1F8 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		A623A4DB2609ACC60072B1F8 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		A66E4FD3260861A800A60E75 /* Github Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Github Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A66E4FD6260861A800A60E75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A66E4FD8260861A800A60E75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				A623A4DA2609ACC60072B1F8 /* User+CoreDataClass.swift */,
-				A623A4DB2609ACC60072B1F8 /* User+CoreDataProperties.swift */,
 				A66E4FFD260865B900A60E75 /* ResponseGithubUser.swift */,
 				A6CB28DD260B1CF8008EA7F8 /* User.swift */,
 			);
@@ -290,7 +287,6 @@
 				A66E500626088C3000A60E75 /* GithubUserListViewModel.swift in Sources */,
 				A6CB28DE260B1CF8008EA7F8 /* User.swift in Sources */,
 				A623A4DC2609ACC60072B1F8 /* User+CoreDataClass.swift in Sources */,
-				A623A4DD2609ACC60072B1F8 /* User+CoreDataProperties.swift in Sources */,
 				A66E4FD7260861A800A60E75 /* AppDelegate.swift in Sources */,
 				A66E4FD9260861A800A60E75 /* SceneDelegate.swift in Sources */,
 				A66E4FF9260862DF00A60E75 /* WebService.swift in Sources */,
