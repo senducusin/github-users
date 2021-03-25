@@ -31,6 +31,27 @@ class PersistenceService{
         }
     }
     
+    private func saveResponseUsersAsUser(responseUsers: [ResponseUser], completion:@escaping(Error?)->()){
+        do {
+            for responseUser in responseUsers {
+                let newUser = User(login: responseUser.login,
+                                   node_id: responseUser.node_id,
+                                   avatar_url: responseUser.avatar_url,
+                                   type: responseUser.type,
+                                   site_admin: responseUser.site_admin,
+                                   id: responseUser.id)
+                
+                try realm.write{
+                    realm.add(newUser)
+                }
+              
+            }
+            completion(nil)
+        }catch{
+            completion(error)
+        }
+    }
+    
     private func updateObject<T:Object>(object: T, withDictionary dictionary:[String:Any], completion:@escaping(Error?)->()){
         do {
             try realm.write{
@@ -69,8 +90,13 @@ extension PersistenceService {
         return realm.objects(User.self)
     }
     
+    // use when bug is fixed on realmSwift
     public func persistUsers(users:[User], completion:@escaping(Error?)->()){
         self.saveObjects(objects: users, completion: completion)
+    }
+    
+    public func persistUsers(users:[ResponseUser], completion:@escaping(Error?)->()){
+        self.saveResponseUsersAsUser(responseUsers: users, completion: completion)
     }
     
     public func updateUser(user:User, completion:@escaping(Result<User,Error>)->()){

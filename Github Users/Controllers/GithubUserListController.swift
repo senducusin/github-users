@@ -64,7 +64,7 @@ class GithubUserListController: UITableViewController {
     
     private func pullUsers(withPagination pagination: Int = 0){
         guard self.isFetching == false,
-              let resource = User.all(pagination: pagination) else {
+              let resource = ResponseUser.all(pagination: pagination) else {
             return
         }
         

@@ -60,7 +60,7 @@ class GithubUserDetailHeaderView: UIView {
     private func populateUserData(){
         guard let user = self.user,
               let follower = user.followers.value,
-              let following = user.following.value else {
+              let following = user.following.value else{
             return
         }
         

@@ -95,12 +95,12 @@ import RealmSwift
         organizations_url: String? = "", repos_url: String? = "", events_url: String? = "",
         received_events_url: String? = "", name: String? = "", company: String? = "",
         blog : String? = "", location : String? = "", email : String? = "",
-        hireable: Bool? = false, bio : String? = "", twitter_username : String? = "",
+        hireable: Bool = false, bio : String? = "", twitter_username : String? = "",
         
-        public_repos : Int?,
-        public_gists : Int?,
-        followers : Int?,
-        following : Int?,
+        public_repos : Int? = 0,
+        public_gists : Int? = 0,
+        followers : Int? = 0,
+        following : Int? = 0,
         
         created_at : String? = "", updated_at : String? = ""){
         
@@ -174,10 +174,11 @@ import RealmSwift
         let bio = try container.decode(String.self, forKey: .bio)
         let twitter_username = try container.decode(String.self, forKey: .twitter_username)
         
-        let public_repos = try container.decode(Int.self, forKey: .public_repos)
-        let public_gists = try container.decode(Int.self, forKey: .public_gists)
-        let followers = try container.decode(Int.self, forKey: .followers)
-        let following = try container.decode(Int.self, forKey: .following)
+        let public_repos = try container.decodeIfPresent(Int.self, forKey: .public_repos)
+        let public_gists = try container.decodeIfPresent(Int.self, forKey: .public_gists)
+        let followers = try container.decodeIfPresent(Int.self, forKey: .followers)
+        let following = try container.decodeIfPresent(Int.self, forKey: .following)
+        
         let created_at = try container.decode(String.self, forKey: .created_at)
         let updated_at = try container.decode(String.self, forKey: .updated_at)
         
