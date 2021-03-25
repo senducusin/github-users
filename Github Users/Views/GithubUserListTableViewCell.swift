@@ -80,11 +80,10 @@ class GithubUserListTableViewCell: UITableViewCell {
             self.loginLabel.text = user.login
             self.typeLabel.text = user.type
             
-            let imagePlaceholder = UIImage(systemName: "person.circle.fill")
             if let urlString = user.avatar_url{
-                self.avatarImageView.kf.setImage(with: URL(string: urlString), placeholder:imagePlaceholder )
+                self.avatarImageView.kf.setImage(with: URL(string: urlString), placeholder:UIImage.personCircleFill )
             }else{
-                self.avatarImageView.image = imagePlaceholder
+                self.avatarImageView.image = UIImage.personCircleFill
             }
             
         }

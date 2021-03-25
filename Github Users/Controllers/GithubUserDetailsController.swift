@@ -7,60 +7,77 @@
 
 import UIKit
 
-class GithubUserDetailsController: UIViewController {
+class GithubUserDetailsController: UITableViewController {
     // MARK: - Properties
     var user: User?
     
+    private lazy var headerView = GithubUserDetailHeaderView(frame: .init(
+                                                        x: 0, y: 0, width: self.view.frame.width, height: 260)
+        )
+    
     // MARK: - Lifecycle
-    init(user: User){
-        self.user = user
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        super.init(nibName: nil, bundle: nil)
-        if  let login = user.login,
-            let resource = ResponseGithubUser.user(withLogin: login) {
+        self.setupUI()
+        self.loadUser()
+    }
+    
+    // MARK: - Helpers
+    private func loadUser(){
+        if  let login = user?.login,
+            let resource = User.user(withLogin: login) {
             
             WebService().load(resource: resource) { [weak self] result in
                 
                 switch(result){
-                
                 case .success(let user):
-                    self?.user?.avatar_url = user.avatar_url
-//                    self?.user?.bio = user.bio
-//                    self?.user?.blog = user.blog
-//                    self?.user?.company = user.company
-                    
-                    
-//                    PersistenceService.shared.save { error in
-//                        if let error = error {
-//                            print(error.localizedDescription)
-//                        }
-//                        
-//                    }
+                    DispatchQueue.main.async {
+                        PersistenceService.shared.updateUser(user: user) { [weak self] result in
+                            switch(result){
+                            
+                            case .success(let user):
+                                self?.user = user
+                                self?.headerView.user = user
+                                self?.setupUser()
+                                
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                                self?.setupUser()
+                                return
+                            }
+                        }
+                        
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.setupUser()
+                    return
                 }
             }
         }
-        
-        
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupUI()
-    }
-    
-    // MARK: - Helpers
     private func setupUI(){
+        self.view.backgroundColor = .white
+        self.title = "Loading..."
+        
+        self.tableView.tableHeaderView = self.headerView
+//        self.setupProfileImage()
+//        self.setupFollowerStack()
+    }
+    
+
+    
+    private func setupUser(){
         guard let user = self.user else {
             return
         }
         
-        self.view.backgroundColor = .white
-        self.title = user.login
+        self.title = user.name ?? user.login
+  
+        
+        
+        
     }
 }
