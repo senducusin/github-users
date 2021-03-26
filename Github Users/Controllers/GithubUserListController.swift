@@ -21,11 +21,17 @@ class GithubUserListController: UITableViewController {
         self.loadUsers()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Will execute only when navigated back to view
+        if self.viewModel.appStarted {
+            self.tableView.reloadData()
+        }
 
         self.viewModel.appStarted = true
     }
+    
     
 // MARK: - Helpers
     private func setupUI(){
@@ -38,18 +44,6 @@ class GithubUserListController: UITableViewController {
     }
     
     private func loadUsers(){
-        
-//        PersistenceService.shared.retrieveUsers(withPagination: self.viewModel.pagination) { [weak self] result in
-//            switch(result){
-//            
-//            case .success(let users): //break
-//                self?.viewModel.users = users
-//                self?.tableView.reloadData()
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//            
-//            if let users = self.viewModel.users,
         self.viewModel.users = PersistenceService.shared.getUsers()
         
         
@@ -58,8 +52,6 @@ class GithubUserListController: UITableViewController {
             self.pullUsers()
             
         }
-//            }
-//        }
     }
     
     private func pullUsers(withPagination pagination: Int = 0){

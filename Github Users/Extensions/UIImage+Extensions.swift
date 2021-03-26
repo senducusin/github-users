@@ -9,4 +9,6 @@ import UIKit
 
 extension UIImage {
     static let personCircleFill = UIImage(systemName: "person.circle.fill")
+    
+    static let noteText = UIImage(systemName: "note.text")
 }
