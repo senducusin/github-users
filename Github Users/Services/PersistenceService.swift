@@ -131,9 +131,10 @@ extension PersistenceService {
             }
         }
         
-
-        
-
-        
     }
+    
+    public func updateUserNotes(user:User, notes:String, completion:@escaping(Error?)->()){
+        self.updateObject(object: user, withDictionary: ["notes":notes], completion: completion)
+    }
+    
 }

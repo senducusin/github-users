@@ -35,6 +35,7 @@ import RealmSwift
     dynamic var blog : String? = ""
     dynamic var location : String? = ""
     dynamic var email : String? = ""
+    dynamic var notes: String? = ""
     
     var hireable = RealmOptional<Bool>()
     dynamic var site_admin: Bool = false

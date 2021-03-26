@@ -24,7 +24,11 @@ struct GithubUserDetailsViewModel {
         if let userDictionary = user.toDictionary(){
             self.details = userDictionary
                 .filter{ (key, value) -> Bool in
-                                return !"\(value)".isEmpty && "\(value)" != "<null>"  }
+                                return
+                                    !"\(value)".isEmpty &&
+                                    "\(value)" != "<null>" &&
+                                    key != "notes"
+                }
                 .map({ Detail(name: self.detailName(name: $0.key), value: $0.value) })
                 .sorted(by: {$0.name < $1.name})
         }

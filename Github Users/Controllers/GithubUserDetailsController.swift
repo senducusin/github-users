@@ -6,17 +6,17 @@
 //
 
 import UIKit
-import JGProgressHUD
 
 class GithubUserDetailsController: UITableViewController {
     // MARK: - Properties
     var user: User?
     var viewModel: GithubUserDetailsViewModel?
-    let hud = JGProgressHUD(style: .dark)
     
     private lazy var headerView = GithubUserDetailHeaderView(frame: .init(
-                                                                x: 0, y: 0, width: self.view.frame.width, height: 280)
-    )
+                                                                x: 0, y: 0, width: self.view.frame.width, height: 280))
+    
+    private lazy var footerView = GithubUserDetailsFooterView(frame: .init(
+                                                                x: 0, y: 0, width: self.view.frame.width, height: 200))
     
     // MARK: - Lifecycle
     init(user: User){
@@ -87,6 +87,7 @@ class GithubUserDetailsController: UITableViewController {
         }
         
         self.tableView.tableHeaderView = self.headerView
+        self.tableView.tableFooterView = self.footerView
     }
     
     private func setupUser(){
@@ -97,6 +98,7 @@ class GithubUserDetailsController: UITableViewController {
         self.viewModel = GithubUserDetailsViewModel(user: user)
         self.title = user.name ?? user.login
         self.headerView.user = user
+        self.footerView.user = user
         self.tableView.reloadData()
     }
 }
