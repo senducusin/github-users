@@ -25,6 +25,7 @@ class GithubUserListController: UITableViewController {
         super.viewWillAppear(animated)
         
         // Will execute only when navigated back to view
+        // To reload changes from detail view
         if self.viewModel.appStarted {
             self.tableView.reloadData()
         }
@@ -32,16 +33,32 @@ class GithubUserListController: UITableViewController {
         self.viewModel.appStarted = true
     }
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private var inSearchMode: Bool {
+            return searchController.isActive && !searchController.searchBar.text!.isEmpty
+        }
     
 // MARK: - Helpers
     private func setupUI(){
         self.title = "Github Users"
+        self.setupSearchController()
     }
     
     private func setupTableView(){
         self.tableView.register(GithubUserListTableViewCell.self, forCellReuseIdentifier: "GithubUserListTableViewCell")
         self.tableView.rowHeight = 80
     }
+    
+    private func setupSearchController() {
+            searchController.searchResultsUpdater = self
+            self.searchController.searchBar.showsCancelButton = false
+            self.navigationItem.searchController = searchController
+            self.searchController.obscuresBackgroundDuringPresentation = false
+            self.searchController.hidesNavigationBarDuringPresentation = false
+            self.searchController.searchBar.placeholder = "Type a username"
+            self.definesPresentationContext = false
+        }
     
     private func loadUsers(){
         self.viewModel.users = PersistenceService.shared.getUsers()
@@ -74,7 +91,6 @@ class GithubUserListController: UITableViewController {
                             return
                         }
                         self.isFetching.toggle()
-//                        self.loadUsers()
                         self.tableView.reloadData()
                     }
                 }
@@ -108,7 +124,8 @@ extension GithubUserListController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard viewModel.appStarted else {
+        guard viewModel.appStarted,
+              !inSearchMode else {
             return
         }
         
@@ -117,5 +134,16 @@ extension GithubUserListController {
         if position > (self.tableView.contentSize.height - 100 - scrollView.frame.size.height) {
             self.pullUsers(withPagination: self.viewModel.pagination)
         }
+    }
+}
+
+extension GithubUserListController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text?.lowercased() else {return}
+        
+        self.viewModel.searchText = searchText
+        
+        self.tableView.reloadData()
+        
     }
 }

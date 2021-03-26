@@ -90,6 +90,10 @@ extension PersistenceService {
         return realm.objects(User.self).sorted(byKeyPath: "id", ascending: true)
     }
     
+    public func getUsersWithLoginFilter(keyword:String) -> Results<User> {
+        return realm.objects(User.self).sorted(byKeyPath: "id", ascending: true).filter("login CONTAINS[cd] %@",keyword)
+    }
+    
     // use when bug is fixed on realmSwift
     public func persistUsers(users:[User], completion:@escaping(Error?)->()){
         self.saveObjects(objects: users, completion: completion)

@@ -27,4 +27,16 @@ struct GitUserListViewModel {
     func userAtIndex(_ index:Int) -> User{
         return users[index]
     }
+    
+    var searchText: String? {
+        didSet {
+            guard let searchText = self.searchText else {return}
+            
+            if searchText.isEmpty {
+                self.users = PersistenceService.shared.getUsers()
+            }else{
+                self.users = PersistenceService.shared.getUsersWithLoginFilter(keyword: searchText)
+            }
+        }
+    }
 }
