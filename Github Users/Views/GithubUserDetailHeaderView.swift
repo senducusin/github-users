@@ -40,7 +40,11 @@ class GithubUserDetailHeaderView: UIView {
     }()
     
     var user:User? {
-        didSet { self.populateUserData() }
+        didSet {
+            
+            self.populateUserData()
+            
+        }
     }
     
     // MARK: - Lifecycle

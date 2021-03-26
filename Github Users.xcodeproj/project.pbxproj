@@ -24,6 +24,10 @@
 		A68BF642260C8607006E1F57 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68BF641260C8607006E1F57 /* UIImage+Extensions.swift */; };
 		A68BF645260C8835006E1F57 /* GithubUserDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68BF644260C8835006E1F57 /* GithubUserDetailHeaderView.swift */; };
 		A68BF649260C9D05006E1F57 /* ResponseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68BF648260C9D05006E1F57 /* ResponseUser.swift */; };
+		A6A01708260D6F310052D102 /* GithubUserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A01707260D6F310052D102 /* GithubUserDetailsViewModel.swift */; };
+		A6A0170B260D6F930052D102 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0170A260D6F930052D102 /* Detail.swift */; };
+		A6A01710260D910C0052D102 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0170F260D910C0052D102 /* String+Extensions.swift */; };
+		A6A01713260DADB80052D102 /* GithubUserDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A01712260DADB80052D102 /* GithubUserDetailsTableViewCell.swift */; };
 		A6CB28DE260B1CF8008EA7F8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CB28DD260B1CF8008EA7F8 /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +51,10 @@
 		A68BF641260C8607006E1F57 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		A68BF644260C8835006E1F57 /* GithubUserDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserDetailHeaderView.swift; sourceTree = "<group>"; };
 		A68BF648260C9D05006E1F57 /* ResponseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseUser.swift; sourceTree = "<group>"; };
+		A6A01707260D6F310052D102 /* GithubUserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserDetailsViewModel.swift; sourceTree = "<group>"; };
+		A6A0170A260D6F930052D102 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		A6A0170F260D910C0052D102 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		A6A01712260DADB80052D102 /* GithubUserDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		A6CB28DD260B1CF8008EA7F8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AC4705C39E84A5D280E18851 /* Pods-Github Users.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github Users.debug.xcconfig"; path = "Target Support Files/Pods-Github Users/Pods-Github Users.debug.xcconfig"; sourceTree = "<group>"; };
 		E7FD89BCA38D8BC40D560DB9 /* Pods-Github Users.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Github Users.release.xcconfig"; path = "Target Support Files/Pods-Github Users/Pods-Github Users.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +148,7 @@
 			children = (
 				A6CB28DD260B1CF8008EA7F8 /* User.swift */,
 				A68BF648260C9D05006E1F57 /* ResponseUser.swift */,
+				A6A0170A260D6F930052D102 /* Detail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				A66E500526088C3000A60E75 /* GithubUserListViewModel.swift */,
+				A6A01707260D6F310052D102 /* GithubUserDetailsViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -157,6 +167,7 @@
 			children = (
 				A66E500A26088CEB00A60E75 /* GithubUserListTableViewCell.swift */,
 				A68BF644260C8835006E1F57 /* GithubUserDetailHeaderView.swift */,
+				A6A01712260DADB80052D102 /* GithubUserDetailsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -168,6 +179,7 @@
 				A623A4D2260984F00072B1F8 /* CodingUserInfoKey+Extensions.swift */,
 				A68BF639260C1AAE006E1F57 /* Encodable+Extensions.swift */,
 				A68BF641260C8607006E1F57 /* UIImage+Extensions.swift */,
+				A6A0170F260D910C0052D102 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,14 +301,18 @@
 				A623A4D3260984F00072B1F8 /* CodingUserInfoKey+Extensions.swift in Sources */,
 				A66E5017260892C200A60E75 /* GithubUserDetailsController.swift in Sources */,
 				A66E501126088D2800A60E75 /* UIView+Extensions.swift in Sources */,
+				A6A01710260D910C0052D102 /* String+Extensions.swift in Sources */,
 				A68BF645260C8835006E1F57 /* GithubUserDetailHeaderView.swift in Sources */,
 				A66E500626088C3000A60E75 /* GithubUserListViewModel.swift in Sources */,
+				A6A01713260DADB80052D102 /* GithubUserDetailsTableViewCell.swift in Sources */,
 				A6CB28DE260B1CF8008EA7F8 /* User.swift in Sources */,
 				A68BF63A260C1AAE006E1F57 /* Encodable+Extensions.swift in Sources */,
 				A66E4FD7260861A800A60E75 /* AppDelegate.swift in Sources */,
 				A68BF649260C9D05006E1F57 /* ResponseUser.swift in Sources */,
+				A6A01708260D6F310052D102 /* GithubUserDetailsViewModel.swift in Sources */,
 				A66E4FD9260861A800A60E75 /* SceneDelegate.swift in Sources */,
 				A66E4FF9260862DF00A60E75 /* WebService.swift in Sources */,
+				A6A0170B260D6F930052D102 /* Detail.swift in Sources */,
 				A68BF642260C8607006E1F57 /* UIImage+Extensions.swift in Sources */,
 				A66E500B26088CEB00A60E75 /* GithubUserListTableViewCell.swift in Sources */,
 				A66E4FF42608626300A60E75 /* GithubUserListController.swift in Sources */,

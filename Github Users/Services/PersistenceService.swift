@@ -87,7 +87,7 @@ class PersistenceService{
 extension PersistenceService {
     
     public func getUsers() -> Results<User>{
-        return realm.objects(User.self)
+        return realm.objects(User.self).sorted(byKeyPath: "id", ascending: true)
     }
     
     // use when bug is fixed on realmSwift

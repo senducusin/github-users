@@ -50,7 +50,7 @@ class GithubUserListController: UITableViewController {
 //            }
 //            
 //            if let users = self.viewModel.users,
-        
+        self.viewModel.users = PersistenceService.shared.getUsers()
         
         
         if self.viewModel.users.isEmpty{
@@ -109,8 +109,7 @@ extension GithubUserListController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = self.viewModel.userAtIndex(indexPath.row)
         
-        let controller = GithubUserDetailsController()
-        controller.user = user
+        let controller = GithubUserDetailsController(user: user)
         navigationController?.pushViewController(controller, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: true)

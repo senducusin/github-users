@@ -28,19 +28,22 @@ import RealmSwift
     dynamic var events_url: String? = ""
     dynamic var received_events_url: String? = ""
     dynamic var type: String? = ""
-    dynamic var site_admin: Bool = false
+    dynamic var bio : String? = ""
+    dynamic var twitter_username : String? = ""
     dynamic var name: String? = ""
     dynamic var company: String? = ""
     dynamic var blog : String? = ""
     dynamic var location : String? = ""
     dynamic var email : String? = ""
-    dynamic var hireable: Bool? = false
-    dynamic var bio : String? = ""
-    dynamic var twitter_username : String? = ""
+    
+    var hireable = RealmOptional<Bool>()
+    dynamic var site_admin: Bool = false
+
     var public_repos = RealmOptional<Int>()
     var public_gists = RealmOptional<Int>()
     var followers = RealmOptional<Int>()
     var following = RealmOptional<Int>()
+    
     dynamic var created_at : String? = ""
     dynamic var updated_at : String? = ""
     
@@ -53,9 +56,7 @@ import RealmSwift
         case node_id
         case avatar_url
         case type
-        case site_admin
         case id
-        
         case gravatar_id
         case url
         case html_url
@@ -73,9 +74,11 @@ import RealmSwift
         case blog
         case location
         case email
-        case hireable
         case bio
         case twitter_username
+        
+        case hireable
+        case site_admin
         
         case public_repos
         case public_gists
@@ -95,24 +98,19 @@ import RealmSwift
         organizations_url: String? = "", repos_url: String? = "", events_url: String? = "",
         received_events_url: String? = "", name: String? = "", company: String? = "",
         blog : String? = "", location : String? = "", email : String? = "",
-        hireable: Bool = false, bio : String? = "", twitter_username : String? = "",
-        
+        hireable: Bool? = false, bio : String? = "", twitter_username : String? = "",
         public_repos : Int? = 0,
         public_gists : Int? = 0,
         followers : Int? = 0,
         following : Int? = 0,
-        
         created_at : String? = "", updated_at : String? = ""){
         
         self.init()
-        
         self.login = login
         self.node_id = node_id
         self.avatar_url = avatar_url
         self.type = type
-        self.site_admin = site_admin
         self.id = id
-        
         self.gravatar_id = gravatar_id
         self.url = url
         self.html_url = html_url
@@ -130,9 +128,11 @@ import RealmSwift
         self.blog = blog
         self.location = location
         self.email = email
-        self.hireable = hireable
         self.bio = bio
         self.twitter_username = twitter_username
+        
+        self.site_admin = site_admin
+        self.hireable.value = hireable
         
         self.public_repos.value = public_repos
         self.public_gists.value = public_gists
@@ -150,9 +150,7 @@ import RealmSwift
         let node_id = try container.decode(String.self, forKey: .node_id)
         let avatar_url = try container.decode(String.self, forKey: .avatar_url)
         let type = try container.decode(String.self, forKey: .type)
-        let site_admin = try container.decode(Bool.self, forKey: .site_admin)
         let id = try container.decode(Int.self, forKey: .id)
-
         let gravatar_id = try container.decode(String.self, forKey: .gravatar_id)
         let url = try container.decode(String.self, forKey: .url)
         let html_url = try container.decode(String.self, forKey: .html_url)
@@ -170,7 +168,10 @@ import RealmSwift
         let blog = try container.decode(String.self, forKey: .blog)
         let location = try container.decode(String.self, forKey: .location)
         let email = try container.decode(String.self, forKey: .email)
+        
         let hireable = try container.decode(Bool.self, forKey: .hireable)
+        let site_admin = try container.decode(Bool.self, forKey: .site_admin)
+        
         let bio = try container.decode(String.self, forKey: .bio)
         let twitter_username = try container.decode(String.self, forKey: .twitter_username)
         
@@ -188,7 +189,6 @@ import RealmSwift
                   type:type,
                   site_admin:site_admin,
                   id:id,
-                  
                   gravatar_id: gravatar_id,
                   url: url,
                   html_url: html_url,
@@ -214,10 +214,6 @@ import RealmSwift
                   following : following,
                   created_at : created_at, updated_at : updated_at)
     }
-}
-
-extension User {
-    
 }
 
 extension User {
