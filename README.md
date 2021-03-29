@@ -21,3 +21,5 @@ This currently prevents the app to use a single model to fetch from Github's API
 ---
 
 ## Demo
+
+![](/Previews/Preview.gif)
