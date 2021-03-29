@@ -53,7 +53,7 @@ public class User: NSManagedObject, Codable {
             company = try values.decode(String.self, forKey: .company)
 
         } catch {
-            print("DEBUG: 2error")
+            print("DEBUG: Decoding Error")
         }
     }
 
