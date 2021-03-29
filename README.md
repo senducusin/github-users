@@ -1,29 +1,23 @@
-# README #
+**Github Users List**
 
-This README would normally document whatever steps are necessary to get your application up and running.
+An app that displays Github users.
 
-### What is this repository for? ###
+This app does not use storyboards except for the launch screen.  
+A sample app that demonstrates CRUD operations in realm. The data model is also set to Codable and can be used directly to fetch data from the API.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Note:   
+RealmSwift has an open bug which the decoder fails if the key of an optional property is missing (https://github.com.cnpmjs.org/realm/realm-cocoa/issues/6991).  
+This currently prevents the app to use a single model to fetch from Github's API. Fix will soon be applied after Realm fixes this issue.
 
-### How do I get set up? ###
+---
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Features
 
-### Contribution guidelines ###
+- Loads and store Github users
+- Search users from local database by username (login)
+- Lazy loading. Automatically loads a new batch of users when reached the bottom of the view.
+- Add a note on each user. If a note is added to a user, a note indicator is displayed on the list.
 
-* Writing tests
-* Code review
-* Other guidelines
+---
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## Demo
