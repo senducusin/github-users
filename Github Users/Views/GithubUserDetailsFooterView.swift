@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol GithubUserDetailsFooterViewProtocol {
+    func textAreaDidBeginEditing()
+}
+
 class GithubUserDetailsFooterView: UIView {
     // MARK: - Properties
     private let notesTextview: UITextView = {
@@ -44,10 +48,13 @@ class GithubUserDetailsFooterView: UIView {
         }
     }
     
+    var delegate: GithubUserDetailsFooterViewProtocol?
+    
     // MARK: - Lifecycle
     override init(frame:CGRect){
         super.init(frame: frame)
         NotificationCenter.default.addObserver(self, selector: #selector(messageInputDidChange), name: UITextView.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(messageInputDidStarted), name: UITextView.textDidBeginEditingNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +79,10 @@ class GithubUserDetailsFooterView: UIView {
                 return
             }
         }
+    }
+    
+    @objc func messageInputDidStarted(){
+        self.delegate?.textAreaDidBeginEditing()
     }
     
     // MARK: - Helpers

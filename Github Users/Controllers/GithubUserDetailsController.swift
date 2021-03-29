@@ -46,6 +46,9 @@ class GithubUserDetailsController: UITableViewController {
     private func setupTableView(){
         self.tableView.register(GithubUserDetailsTableViewCell.self, forCellReuseIdentifier: "GithubUserDetailsTableViewCell")
         self.tableView.rowHeight = 55
+        self.tableView.tableHeaderView = self.headerView
+        self.tableView.tableFooterView = self.footerView
+        self.tableView.keyboardDismissMode = .onDrag
     }
     
     private func loadUser(){
@@ -85,9 +88,7 @@ class GithubUserDetailsController: UITableViewController {
         if let user = user {
             self.title = user.name ?? user.login
         }
-        
-        self.tableView.tableHeaderView = self.headerView
-        self.tableView.tableFooterView = self.footerView
+        self.setupTableView()
     }
     
     private func setupUser(){
@@ -99,6 +100,8 @@ class GithubUserDetailsController: UITableViewController {
         self.title = user.name ?? user.login
         self.headerView.user = user
         self.footerView.user = user
+        self.footerView.delegate = self
+        
         self.tableView.reloadData()
     }
 }
@@ -138,4 +141,13 @@ extension GithubUserDetailsController {
             alert.dismiss(animated: true, completion: nil)
         }
     }
+}
+
+extension GithubUserDetailsController: GithubUserDetailsFooterViewProtocol {
+    func textAreaDidBeginEditing() {
+        let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.height + (footerView.bounds.height*2))
+        self.tableView.setContentOffset(bottomOffset, animated: true)
+    }
+    
+    
 }
